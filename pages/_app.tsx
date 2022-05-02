@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { AuthContextProvider } from "../lib/auth/AuthContextProvider";
 import "../lib/firebase/firebase.config";
+import CoreLayout from "@App/components/layouts/CoreLayout";
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient();
@@ -12,7 +13,9 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthContextProvider>
-        <Component {...pageProps} />
+        <CoreLayout>
+          <Component {...pageProps} />
+        </CoreLayout>
       </AuthContextProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>

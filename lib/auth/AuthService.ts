@@ -11,6 +11,7 @@ import {
   createUserWithEmailAndPassword,
 } from "firebase/auth";
 import FirebaseService from "../firebase/FirebaseService";
+import { IEmailAuthVariables } from "./types";
 
 class AuthService extends FirebaseService {
   auth: Auth;
@@ -21,11 +22,17 @@ class AuthService extends FirebaseService {
     this.auth = getAuth(this.app);
   }
 
-  async login(email: string, password: string): Promise<UserCredential> {
-    return signInWithEmailAndPassword(this.auth, email, password);
+  async login({
+    email,
+    password,
+  }: IEmailAuthVariables): Promise<UserCredential> {
+    return await signInWithEmailAndPassword(this.auth, email, password);
   }
 
-  async signup(email: string, password: string): Promise<UserCredential> {
+  async signup({
+    email,
+    password,
+  }: IEmailAuthVariables): Promise<UserCredential> {
     return createUserWithEmailAndPassword(this.auth, email, password);
   }
 

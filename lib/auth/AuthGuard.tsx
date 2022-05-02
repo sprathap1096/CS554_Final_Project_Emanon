@@ -15,7 +15,7 @@ function AuthGuard({ children, router }: PropsWithChildren<WithRouterProps>) {
     });
   }, [currentUser, router]);
 
-  if (!currentUser) return null;
+  if (!currentUser) return <></>;
 
   return <>{children}</>;
 }
