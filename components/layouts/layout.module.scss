@@ -1,0 +1,15 @@
+@import "@App/styles/colors.scss";
+
+.page_container {
+  display: flex;
+  height: 100vh;
+  background-color: $background;
+}
+.container {
+  padding: 2rem;
+  width: 100%;
+}
+
+.mainContainer{
+  height:100%;
+}
