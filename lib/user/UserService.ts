@@ -11,7 +11,7 @@ import {
 } from "firebase/firestore";
 
 import FirebaseService from "../firebase/FirebaseService";
-import { IUser } from "./types";
+import { IUserAttributes } from "./types";
 
 class UserService extends FirebaseService {
   private firestore: Firestore;
@@ -23,10 +23,10 @@ class UserService extends FirebaseService {
   }
 
   private getDocRef(userId: string) {
-    return doc(this.firestore, "users", userId) as DocumentReference<IUser>;
+    return doc(this.firestore, "users", userId) as DocumentReference<IUserAttributes>;
   }
 
-  async add(userId: string, user: IUser) {
+  async add(userId: string, user: IUserAttributes) {
     const userDocRef = this.getDocRef(userId);
 
     return setDoc(userDocRef, user);
@@ -36,9 +36,9 @@ class UserService extends FirebaseService {
     const userDocRef = this.getDocRef(user.uid);
 
     const userDoc = {
-      id: user.uid,
       email: user.email || "",
       name: "",
+      avatarUrl: "",
       createdAt: Timestamp.now(),
     };
 
