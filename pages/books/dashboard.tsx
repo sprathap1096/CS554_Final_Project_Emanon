@@ -19,7 +19,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { mainListItems,} from 'components/listItems';
-import BookList from './BookList';
+import BookList from '../../components/BookList';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import Search from '../../components/Search'
 
