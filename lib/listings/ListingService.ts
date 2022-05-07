@@ -47,7 +47,10 @@ class ListingService extends FirebaseService {
     ) as CollectionReference<IListingAttributes>;
   }
 
-  addListing(ref: TListingCollectionReference, listingAttr: IBaseListing) {
+  async addListing(
+    ref: TListingCollectionReference,
+    listingAttr: IBaseListing
+  ) {
     const collectionRef = this.getCollectionRef(ref);
 
     const listing: IListingAttributes = {
@@ -55,7 +58,7 @@ class ListingService extends FirebaseService {
       createdAt: Timestamp.now(),
     };
 
-    addDoc(collectionRef, listing);
+    return addDoc(collectionRef, listing);
   }
 }
 

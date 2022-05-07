@@ -1,6 +1,6 @@
 export enum ECollections {
   Users = "users",
   Listings = "listings",
-  Library = "library",
+  Books = "books",
   Reviews = "reviews",
 }

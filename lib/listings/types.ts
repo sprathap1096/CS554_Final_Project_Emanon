@@ -7,8 +7,9 @@ export type TListingDocumentReference =
 export type TListingCollectionReference = { userId: string };
 
 export interface IBaseListing {
-  book: string;
+  title: string;
   author: string;
+  description: string;
   price: number;
 }
 
