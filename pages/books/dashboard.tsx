@@ -21,7 +21,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { mainListItems,} from 'components/listItems';
 import BookList from './BookList';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import Search from './Search'
+import Search from '../../components/Search'
 
 const drawerWidth: number = 240;
 
