@@ -1,11 +1,11 @@
 import { createContext, Dispatch, SetStateAction, useContext } from "react";
 
 import { DocumentSnapshot } from "firebase/firestore";
-import { IUser } from "../user/types";
+import { IUserAttributes } from "../user/types";
 
 interface AuthContextState {
-  setCurrentUser: Dispatch<SetStateAction<DocumentSnapshot<IUser> | null>>;
-  currentUser: DocumentSnapshot<IUser> | null;
+  setCurrentUser: Dispatch<SetStateAction<DocumentSnapshot<IUserAttributes> | null>>;
+  currentUser: DocumentSnapshot<IUserAttributes> | null;
 }
 
 export const AuthContext = createContext<AuthContextState | null>(null);

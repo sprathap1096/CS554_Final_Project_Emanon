@@ -3,12 +3,12 @@ import AuthService from "./AuthService";
 import { AuthContext } from "./AuthContext";
 
 import { DocumentSnapshot } from "firebase/firestore";
-import { IUser } from "../user/types";
+import { IUserAttributes } from "../user/types";
 import UserService from "../user/UserService";
 
 export function AuthContextProvider({ children }: PropsWithChildren<{}>) {
   const [currentUser, setCurrentUser] =
-    useState<DocumentSnapshot<IUser> | null>(null);
+    useState<DocumentSnapshot<IUserAttributes> | null>(null);
 
   useEffect(() => {
     AuthService.onAuthStateChanged(async (user) => {
