@@ -2,11 +2,9 @@ name: CI
 
 on:
   push:
-    branches:
-      - "*"
+    branches: [ main ]
   pull_request:
-    branches:
-      - "*"
+    branches: [ main ]
 
 env:
   NEXT_PUBLIC_FIREBASE_API_KEY: "AIzaSyAXiD3-Ac6LmsUHjpwv5EjD0egYTSVpXo0"
