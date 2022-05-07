@@ -1,7 +1,6 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import useAuthContext from "@App/lib/auth/AuthContext";
-import styles from "@App/styles/LoginPage.module.scss";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -51,18 +50,16 @@ export default function SignUpPage() {
   return (
     <UnAuthGuard>
       <Box>
-        <div className={styles.loginBox}>
+        <div>
           <h1>{currentUser?.id}</h1>
-          <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-            <div className={styles.logo}>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div>
               <h1>Digital Coach</h1>
             </div>
             <h2>Register an Account</h2>
             <h3>Email</h3>
             <TextField type="email" placeholder="" {...register("email")} />
-            {formError.email && (
-              <p className={styles.issue}>{formError.email.message}</p>
-            )}
+            {formError.email && <p>{formError.email.message}</p>}
             <h3>Password</h3>
             <TextField
               type="password"
@@ -70,9 +67,7 @@ export default function SignUpPage() {
               placeholder=""
               {...register("password")}
             />
-            {formError.password && (
-              <p className={styles.issue}>{formError.password.message}</p>
-            )}
+            {formError.password && <p>{formError.password.message}</p>}
             <h3>Confirm Password</h3>
 
             <TextField
@@ -82,9 +77,7 @@ export default function SignUpPage() {
               {...register("passwordConfirm")}
             />
             {formError.passwordConfirm && (
-              <p className={styles.issue}>
-                {formError.passwordConfirm.message}
-              </p>
+              <p>{formError.passwordConfirm.message}</p>
             )}
 
             <Button type="submit">
