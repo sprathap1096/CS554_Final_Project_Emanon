@@ -1,7 +1,11 @@
-import { Timestamp } from "firebase/firestore";
+import { DocumentReference, Timestamp } from "firebase/firestore";
 
-export interface IUser {
+export type IUserDocumentReference =
+  | DocumentReference<IUserAttributes>
+  | { userId: string };
+export interface IUserAttributes {
   name: string;
   email: string;
+  avatarUrl: string;
   createdAt: Timestamp;
 }

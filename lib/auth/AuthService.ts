@@ -33,7 +33,7 @@ class AuthService extends FirebaseService {
     email,
     password,
   }: IEmailAuthVariables): Promise<UserCredential> {
-    return createUserWithEmailAndPassword(this.auth, email, password);
+    return await createUserWithEmailAndPassword(this.auth, email, password);
   }
 
   async loginWithGoogle(): Promise<UserCredential> {
