@@ -1,7 +1,6 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import useAuthContext from "@App/lib/auth/AuthContext";
-//import styles from "@App/styles/LoginPage.module.scss";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
