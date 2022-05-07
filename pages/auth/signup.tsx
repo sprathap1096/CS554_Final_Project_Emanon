@@ -50,18 +50,16 @@ export default function SignUpPage() {
   return (
     <UnAuthGuard>
       <Box>
-        <div className="Loginbox">
+        <div>
           <h1>{currentUser?.id}</h1>
-          <form className="forms" onSubmit={handleSubmit(onSubmit)}>
-            <div className="logos">
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div>
               <h1>Digital Coach</h1>
             </div>
             <h2>Register an Account</h2>
             <h3>Email</h3>
             <TextField type="email" placeholder="" {...register("email")} />
-            {formError.email && (
-              <p className="issues">{formError.email.message}</p>
-            )}
+            {formError.email && <p>{formError.email.message}</p>}
             <h3>Password</h3>
             <TextField
               type="password"
@@ -69,9 +67,7 @@ export default function SignUpPage() {
               placeholder=""
               {...register("password")}
             />
-            {formError.password && (
-              <p className="issues">{formError.password.message}</p>
-            )}
+            {formError.password && <p>{formError.password.message}</p>}
             <h3>Confirm Password</h3>
 
             <TextField
@@ -81,9 +77,7 @@ export default function SignUpPage() {
               {...register("passwordConfirm")}
             />
             {formError.passwordConfirm && (
-              <p className="issues">
-                {formError.passwordConfirm.message}
-              </p>
+              <p>{formError.passwordConfirm.message}</p>
             )}
 
             <Button type="submit">
