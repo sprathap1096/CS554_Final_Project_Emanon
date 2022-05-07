@@ -6,12 +6,9 @@ import {
   StorageReference,
   uploadBytes,
 } from "firebase/storage";
-import { uuid } from "uuidv4";
-import FirebaseService from "@App/lib/firebase/FirebaseService";
 
-export enum EStorageFolders {
-  profilePic = "profilePic",
-}
+import FirebaseService from "@App/lib/firebase/FirebaseService";
+import { EStorageFolders } from "./types";
 
 class StorageService extends FirebaseService {
   private storage: FirebaseStorage;
@@ -21,26 +18,24 @@ class StorageService extends FirebaseService {
     this.storage = getStorage(this.app);
   }
 
-  async upload(file: File, folder: EStorageFolders, filename: string = uuid()) {
+  async upload(
+    file: File | Blob | ArrayBuffer,
+    folder: EStorageFolders,
+    filename: string,
+    contentType: string = "image/jpg"
+  ) {
     const fileRef = ref(this.storage, `${folder}/${filename}`);
 
-    await uploadBytes(fileRef, file, { contentType: file.type });
-
-    return getDownloadURL(fileRef);
+    return uploadBytes(fileRef, file, { contentType });
   }
 
-  async uploadAnswerVideo(file: File|Blob|ArrayBuffer, interviewId: string){
+  async getDownloadUrlFromVideoUrlRef(videoUrl: string | StorageReference) {
     const storage = getStorage();
-    const interviewAnswersRef = ref(storage, `interview-responses/${interviewId}.mp4`);
-    return uploadBytes(interviewAnswersRef, file, {contentType:"video/mp4"});
-  }
-  async getDownloadUrlFromVideoUrlRef(videoUrl: string | StorageReference){
-    const storage = getStorage();
-    if(typeof videoUrl === 'string' || videoUrl instanceof String){ 
+    if (typeof videoUrl === "string" || videoUrl instanceof String) {
       const videoUrlString = videoUrl as string;
       const interviewAnswersRef = ref(storage, videoUrlString);
       return getDownloadURL(interviewAnswersRef);
-    }else {
+    } else {
       const videoUrlRef = videoUrl as StorageReference;
       return getDownloadURL(videoUrlRef);
     }
