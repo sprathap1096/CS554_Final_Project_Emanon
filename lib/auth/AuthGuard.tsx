@@ -9,6 +9,7 @@ function AuthGuard({ children, router }: PropsWithChildren<WithRouterProps>) {
 
   useEffect(() => {
     AuthService.onAuthStateChanged(async () => {
+      console.log("AuthGuard: onAuthStateChanged");
       const isSignedIn = AuthService.isSignedIn();
 
       if (!isSignedIn) router.push("/auth/login");

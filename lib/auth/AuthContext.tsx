@@ -4,7 +4,13 @@ import { DocumentSnapshot } from "firebase/firestore";
 import { IUserAttributes } from "../user/types";
 
 interface AuthContextState {
-  setCurrentUser: Dispatch<SetStateAction<DocumentSnapshot<IUserAttributes> | null>>;
+  login: (email: string, password: string) => Promise<void>;
+  logout: () => Promise<void>;
+  signup: (email: string, password: string) => Promise<void>;
+  error: string;
+  setCurrentUser: Dispatch<
+    SetStateAction<DocumentSnapshot<IUserAttributes> | null>
+  >;
   currentUser: DocumentSnapshot<IUserAttributes> | null;
 }
 

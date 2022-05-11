@@ -3,16 +3,24 @@ import styles from "./layout.module.scss";
 import { PropsWithChildren } from "react";
 
 import useAuthContext from "@App/lib/auth/AuthContext";
+import AuthenticatedLayout from "./AuthenticatedLayout";
 
 export const siteTitle = "Digital Coach";
 
 export default function CoreLayout({ children }: PropsWithChildren<{}>) {
   const auth = useAuthContext();
 
+  const renderLayout = () => {
+    if (auth.currentUser)
+      return <AuthenticatedLayout>{children}</AuthenticatedLayout>;
+
+    return children;
+  };
+
   return (
     <>
       <Head>
-        <title>Digital Coach</title>
+        <title>Emanon</title>
         <meta name="description" content="Senior Design" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -22,7 +30,7 @@ export default function CoreLayout({ children }: PropsWithChildren<{}>) {
             <title>{siteTitle}</title>
           </Head>
 
-          <main className={styles.mainContainer}>{children}</main>
+          <main className={styles.mainContainer}>{renderLayout()} </main>
         </div>
       </div>
     </>
