@@ -18,7 +18,6 @@ class AuthService extends FirebaseService {
 
   constructor() {
     super();
-
     this.auth = getAuth(this.app);
   }
 
@@ -26,14 +25,14 @@ class AuthService extends FirebaseService {
     email,
     password,
   }: IEmailAuthVariables): Promise<UserCredential> {
-    return await signInWithEmailAndPassword(this.auth, email, password);
+    return signInWithEmailAndPassword(this.auth, email, password);
   }
 
   async signup({
     email,
     password,
   }: IEmailAuthVariables): Promise<UserCredential> {
-    return await createUserWithEmailAndPassword(this.auth, email, password);
+    return createUserWithEmailAndPassword(this.auth, email, password);
   }
 
   async loginWithGoogle(): Promise<UserCredential> {

@@ -1,11 +1,15 @@
 import {
   addDoc,
   collection,
+  collectionGroup,
   CollectionReference,
   doc,
   DocumentReference,
   Firestore,
+  getDocs,
   getFirestore,
+  query,
+  Query,
   Timestamp,
 } from "firebase/firestore";
 import FirebaseService from "../firebase/FirebaseService";
@@ -47,6 +51,13 @@ class ListingService extends FirebaseService {
     ) as CollectionReference<IListingAttributes>;
   }
 
+  getCollectionGroupRef() {
+    return collectionGroup(
+      this.firestore,
+      ECollections.Listings
+    ) as Query<IListingAttributes>;
+  }
+
   async addListing(
     ref: TListingCollectionReference,
     listingAttr: IBaseListing
@@ -59,6 +70,11 @@ class ListingService extends FirebaseService {
     };
 
     return addDoc(collectionRef, listing);
+  }
+
+  async fetchAllListings() {
+    const groupQuery = query(this.getCollectionGroupRef());
+    return getDocs(groupQuery);
   }
 }
 
