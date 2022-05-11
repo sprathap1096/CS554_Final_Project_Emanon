@@ -76,6 +76,12 @@ class ListingService extends FirebaseService {
     const groupQuery = query(this.getCollectionGroupRef());
     return getDocs(groupQuery);
   }
+  async fetchcurrentuserListings(
+    ref: TListingCollectionReference,
+  ) {
+    const collectionRef = this.getCollectionRef(ref);
+    return getDocs(collectionRef);
+  }
 }
 
 export default new ListingService();
