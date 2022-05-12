@@ -1,3 +1,4 @@
+import { StringFormat } from "firebase/storage";
 import { useQuery } from "react-query";
 import ListingService from "./ListingService";
 import {
@@ -7,6 +8,6 @@ import {
     TListingDocumentReference,
   } from "./types"
 
-export default function useFetchCurrentUserListing(uid: any) {
-  return useQuery(["listings"], () => ListingService.fetchcurrentuserListings(uid));
+export default function useFetchCurrentUserListing(userId: TListingCollectionReference) {
+  return useQuery(["listings"], () => ListingService.fetchcurrentuserListings(userId));
 }
