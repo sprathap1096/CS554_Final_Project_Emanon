@@ -5,22 +5,17 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Link from "next/link";
 import UnAuthGuard from "@App/lib/auth/UnAuthGuard";
-import UserService from "@App/lib/user/UserService";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
 import useSignUp from "@App/lib/auth/useSignUp";
 import { IEmailAuthVariables } from "@App/lib/auth/types";
 import { Box, Button, TextField } from "@mui/material";
 
 interface LoginFormInputs extends IEmailAuthVariables {
-  name: string;
   passwordConfirm: string;
 }
 
 const inputValidationSchema = yup
   .object({
-    name: yup
-      .string()
-      .required("Name is required"),
     email: yup
       .string()
       .email("Must be a valid email")
@@ -46,15 +41,8 @@ export default function SignUpPage() {
   });
 
   const onSubmit: SubmitHandler<LoginFormInputs> = (data) => {
-    const { passwordConfirm, name, ...emailAuthVariables } = data;
+    const { passwordConfirm, ...emailAuthVariables } = data;
     signup(emailAuthVariables);
-    console.log("ran signup");
-    if (currentUser) {
-      UserService.updateName(currentUser.id, name);
-    }
-    else{
-      console.log("error currentUser does not exist");
-    }
   };
 
   return (
@@ -67,9 +55,6 @@ export default function SignUpPage() {
               <h1>Digital Coach</h1>
             </div>
             <h2>Register an Account</h2>
-            <h3>Name</h3>
-            <TextField type="name" placeholder="" {...register("name")}/>
-            {formError.name && <p>{formError.name.message}</p>}
             <h3>Email</h3>
             <TextField type="email" placeholder="" {...register("email")} />
             {formError.email && <p>{formError.email.message}</p>}
