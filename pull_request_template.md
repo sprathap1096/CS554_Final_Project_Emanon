@@ -7,6 +7,7 @@ Please summarize the proposed changes
 The proposed changes:
 
 - [ ] Have been self-reviewed
+- [ ] Add descriptive PR title
 
 ## Screenshots
 
