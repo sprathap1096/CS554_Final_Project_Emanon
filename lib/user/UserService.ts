@@ -32,13 +32,7 @@ class UserService extends FirebaseService {
     return setDoc(userDocRef, user);
   }
 
-  async updateUser(userId: string, name?: string, avatarUrl?: string, email?: string) {
-    const userDocRef = this.getDocRef(userId);
-    
-    return updateDoc(userDocRef, {name: name });
-  }
-
-  async updateName(name: string, userId: string) {
+  async updateName(name: string, userId: string, ) {
     const userDocRef = this.getDocRef(userId);
 
     return updateDoc(userDocRef, {name: name});
