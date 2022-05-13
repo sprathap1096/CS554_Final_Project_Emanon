@@ -3,4 +3,5 @@ export enum ECollections {
   Listings = "listings",
   Books = "books",
   Reviews = "reviews",
+  Cart = "cart"
 }

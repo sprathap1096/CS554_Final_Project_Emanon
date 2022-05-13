@@ -5,6 +5,8 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  makeStyles,
+  Typography,
 } from "@mui/material";
 import {
   Menu as MenuIcon,
@@ -24,6 +26,8 @@ export default function Sidebar() {
   return (
     <Drawer anchor="left" open variant="persistent">
       <Box p={2}>
+        <Typography variant="h5">Emanon</Typography>
+
         <List>
           <ListItemButton onClick={() => router.push("/")}>
             <ListItemIcon>
@@ -39,13 +43,6 @@ export default function Sidebar() {
             <ListItemText primary={"Orders"} />
           </ListItemButton>
 
-          <ListItemButton onClick={() => router.push("/profile")}>
-            <ListItemIcon>
-              <PeopleIcon />
-            </ListItemIcon>
-            <ListItemText primary={"Profile"} />
-          </ListItemButton>
-
           <ListItemButton onClick={() => router.push("/books")}>
             <ListItemIcon>
               <BarChartIcon />
@@ -58,6 +55,13 @@ export default function Sidebar() {
               <LayersIcon />
             </ListItemIcon>
             <ListItemText primary={"Listings"} />
+          </ListItemButton>
+
+          <ListItemButton onClick={() => router.push("/profile")}>
+            <ListItemIcon>
+              <PeopleIcon />
+            </ListItemIcon>
+            <ListItemText primary={"Profile"} />
           </ListItemButton>
         </List>
       </Box>
