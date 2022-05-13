@@ -32,6 +32,30 @@ class UserService extends FirebaseService {
     return setDoc(userDocRef, user);
   }
 
+  async updateUser(userId: string, name?: string, avatarUrl?: string, email?: string) {
+    const userDocRef = this.getDocRef(userId);
+    //need all
+    return updateDoc(userDocRef, {name: name, avatarUrl: avatarUrl, email: email });
+  }
+
+  async updateName(name: string, userId: string) {
+    const userDocRef = this.getDocRef(userId);
+
+    return updateDoc(userDocRef, {name: name});
+  }
+
+  async updateAvatarUrl(avatarUrl: string, userId: string ) {
+    const userDocRef = this.getDocRef(userId);
+
+    return updateDoc(userDocRef, {avatarUrl: avatarUrl});
+  }
+
+  async updateEmail(email: string, userId: string) {
+    const userDocRef = this.getDocRef(userId);
+
+    return updateDoc(userDocRef, {email: email});
+  }
+
   async createNewUser(user: FirebaseUser) {
     const userDocRef = this.getDocRef(user.uid);
 
@@ -44,6 +68,7 @@ class UserService extends FirebaseService {
 
     return setDoc(userDocRef, userDoc);
   }
+
 
   async getUser(userId: string) {
     const userDocRef = this.getDocRef(userId);
