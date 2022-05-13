@@ -8,6 +8,6 @@ import {
     TListingDocumentReference,
   } from "./types"
 
-export default function useFetchCurrentUserListing(userId: TListingCollectionReference) {
-  return useQuery(["listings"], () => ListingService.fetchcurrentuserListings(userId));
+export default function useFetchDeletListings(ref: TListingDocumentReference) {
+  return ListingService.deleteListings(ref);
 }
