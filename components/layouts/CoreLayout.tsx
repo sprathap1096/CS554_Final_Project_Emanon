@@ -5,7 +5,7 @@ import { PropsWithChildren } from "react";
 import useAuthContext from "@App/lib/auth/AuthContext";
 import AuthenticatedLayout from "./AuthenticatedLayout";
 
-export const siteTitle = "Digital Coach";
+export const siteTitle = "Emamon";
 
 export default function CoreLayout({ children }: PropsWithChildren<{}>) {
   const auth = useAuthContext();

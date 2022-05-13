@@ -64,7 +64,6 @@ class ListingService extends FirebaseService {
     ref: TListingCollectionReference,
     listingAttr: IBaseListing
   ) {
-
     const collectionRef = this.getCollectionRef(ref);
 
     const listing: IListingAttributes = {
@@ -80,37 +79,29 @@ class ListingService extends FirebaseService {
     return getDocs(groupQuery);
   }
 
-  async fetchUserListings(
-    ref: TListingCollectionReference,
-  ) {
+  async fetchUserListings(ref: TListingCollectionReference) {
     const collectionRef = this.getCollectionRef(ref);
     return getDocs(collectionRef);
   }
 
-  async deleteListings(ref: TListingDocumentReference)
-  {
-  const docRef = this.getDocRef(ref);
-   return deleteDoc(docRef);
+  async deleteListings(ref: TListingDocumentReference) {
+    const docRef = this.getDocRef(ref);
+    return deleteDoc(docRef);
   }
 
-  async fetchdoc(ref: TListingDocumentReference)
-  {
+  async fetchListing(ref: TListingDocumentReference) {
     const docRef = this.getDocRef(ref);
+
     return getDoc(docRef);
   }
 
   async updateListing(
     ref: TListingDocumentReference,
-    listingAttr: IBaseListing
+    listingAttr: Partial<IBaseListing>
   ) {
     const docRef = this.getDocRef(ref);
-    const listing: IListingAttributes = {
-      ...listingAttr,
-      createdAt: Timestamp.now(),
-    };
 
-    return updateDoc(docRef, listing);
-
+    return updateDoc(docRef, listingAttr);
   }
 }
 
