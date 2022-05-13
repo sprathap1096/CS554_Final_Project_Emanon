@@ -82,6 +82,15 @@ export default async function seed(
       avatarFiveRef,
     ];
 
+    const bookCoverFilePath = [
+      "assets/covers/cover01.jpeg",
+      "assets/covers/cover02.jpeg",
+    ];
+    const bookCoverImageQuery = bookCoverFilePath.map((filePath) =>
+      fs.readFile(filePath)
+    );
+    const bookCovers = await Promise.all(bookCoverImageQuery);
+
     const userCollectionsMutation = userCredentials.map(async ({ user }, idx) =>
       UserService.add(
         user.uid,

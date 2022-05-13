@@ -1,7 +1,11 @@
+import AuthGuard from "@App/lib/auth/AuthGuard";
+
 export default function ListingsPage() {
   return (
-    <div>
-      <h1>Listings</h1>
-    </div>
+    <AuthGuard>
+      <div>
+        <h1>Listings</h1>
+      </div>
+    </AuthGuard>
   );
 }
