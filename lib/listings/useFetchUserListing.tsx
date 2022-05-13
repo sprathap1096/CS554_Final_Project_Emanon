@@ -8,6 +8,6 @@ import {
     TListingDocumentReference,
   } from "./types"
 
-export default function fetchUserListings(userId: TListingCollectionReference) {
+export default function useFetchUserListings(userId: TListingCollectionReference) {
   return useQuery(["listings"], () => ListingService.fetchUserListings(userId));
 }

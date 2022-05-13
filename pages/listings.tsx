@@ -1,7 +1,7 @@
 import AuthGuard from "@App/lib/auth/AuthGuard";
 import useAuthContext from "@App/lib/auth/AuthContext";
-import fetchUserListings from "@App/lib/listings/useFetchUserListing";
-import useDeleteListings from "@App/lib/listings/useDeleteListings";
+import useFetchUserListings from "@App/lib/listings/useFetchUserListing";
+import UseDeletListings from "@App/lib/listings/useDeleteListings";
 import { Card, CardMedia, Stack, CardContent, Box, LinearProgress, Paper, Typography, Button } from "@mui/material";
 import { updateCurrentUser } from "firebase/auth";
 import type { NextPage } from "next";
@@ -13,13 +13,13 @@ const ListingsPage: NextPage = () => {
   const { currentUser } = useAuthContext()
   let obj:TListingCollectionReference;
   obj={userId: currentUser?.id!}
-  const { data: listings, isLoading } = fetchUserListings(obj);
+  const { data: listings, isLoading } = useFetchUserListings(obj);
   
   const handleClickDelete = (listingId: string, userId: string) => {
     console.log(listingId,userId)
     let deleteobj:TListingDocumentReference;
     deleteobj={userId: userId, listingId: listingId} 
-    useDeleteListings(deleteobj);
+    const{data: deleted}=UseDeletListings(deleteobj);
     //if(listings)
       //listings.docs = listings?.docs.filter(i => i.id !== listingId);
   };

@@ -90,7 +90,7 @@ class ListingService extends FirebaseService {
   async deleteListings(ref: TListingDocumentReference)
   {
   const docRef = this.getDocRef(ref);
-   deleteDoc(docRef);
+   return deleteDoc(docRef);
   }
 
   async fetchdoc(ref: TListingDocumentReference)

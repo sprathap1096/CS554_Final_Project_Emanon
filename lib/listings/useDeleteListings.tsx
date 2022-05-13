@@ -8,6 +8,6 @@ import {
     TListingDocumentReference,
   } from "./types"
 
-export default function useFetchDeletListings(ref: TListingDocumentReference) {
-  return ListingService.deleteListings(ref);
+export default function UseDeletListings(ref: TListingDocumentReference) {
+  return useQuery(["deleted"], () => ListingService.deleteListings(ref));
 }

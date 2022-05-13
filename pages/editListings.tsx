@@ -16,7 +16,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from 'react';
-const editListings: NextPage = () => {
+const EditListings: NextPage = () => {
 const router = useRouter();
 let title =router.query.title as string;
 let author = router.query.author as string;
@@ -144,4 +144,4 @@ useEffect(() => {
   );
 };
 
-export default editListings;
+export default EditListings;

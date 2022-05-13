@@ -16,7 +16,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 
-const addListings: NextPage = () => {
+const AddListings: NextPage = () => {
   const theme = createTheme(); 
   const router = useRouter();
   const { currentUser } = useAuthContext()
@@ -126,4 +126,4 @@ const addListings: NextPage = () => {
   );
 };
 
-export default addListings;
+export default AddListings;
