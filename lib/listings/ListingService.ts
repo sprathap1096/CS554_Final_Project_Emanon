@@ -23,10 +23,6 @@ import {
   TListingCollectionReference,
   TListingDocumentReference,
 } from "./types";
-import fs from "fs/promises";
-import StorageService from "@App/lib/storage/StorageService";
-import { EStorageFolders } from "@App/lib/storage/types";
-
 class ListingService extends FirebaseService {
   private firestore: Firestore;
 

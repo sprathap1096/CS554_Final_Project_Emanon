@@ -10,7 +10,6 @@ import { Box, LinearProgress, Paper, Typography } from "@mui/material";
 import useAuthContext from "@App/lib/auth/AuthContext";
 import ListingService from "@App/lib/listings/ListingService";
 import {IBaseListing, TListingDocumentReference} from "@App/lib/listings/types"
-import usefetchSinglelisting from "@App/lib/listings/usefetchSinglelisting";
 import { SubmitHandler, useForm  } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
