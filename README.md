@@ -67,8 +67,3 @@ To skip sign-up, sign-in using one of the users below:
         • Storage, will provide a storage solution for assets and file storage (https://firebase.google.com/docs/storage)
 
         • Local Emulator, will provide a suite of Firebase tools locally(https://firebase.google.com/docs/emulator-suite)
-        
-        
-        
-
-
