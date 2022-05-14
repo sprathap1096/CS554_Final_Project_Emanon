@@ -53,3 +53,22 @@ To skip sign-up, sign-in using one of the users below:
         •	components: houses the universal layout and various other components referenced in other pages like drawer for navigation.
         •	lib: holds all the services being used and referenced in the application such as authentication, listings, cart service etc. This directory is responsible for firebase interactions.
         •	styles: constants the style information and CSS files for the applications
+
+10) Technologies used
+
+        • Next.js, a React framework with Type Script support (https://nextjs.org/)
+
+        ● Firebase 
+
+        • Auth, will provide user authentication services (https://firebase.google.com/docs/auth)
+
+        • Firestore, will provide our core database (https://firebase.google.com/docs/firestore)
+
+        • Storage, will provide a storage solution for assets and file storage (https://firebase.google.com/docs/storage)
+
+        • Local Emulator, will provide a suite of Firebase tools locally(https://firebase.google.com/docs/emulator-suite)
+        
+        
+        
+
+
