@@ -107,17 +107,17 @@ export default async function seed(
 
     const addUserListingMutation = userCredentials
       .map((user) => {
-        const numListing = getRandomInt(5);
+        const numListing = getRandomInt(10);
         return new Array(numListing).fill(null).map(() =>
-          ListingService.addListing(
-            { userId: user.user.uid },
-            {
+          ListingService.addListing({
+            ref: { userId: user.user.uid },
+            listingAttr: {
               price: 100,
               title: lorem.generateWords(4),
               author: lorem.generateWords(2),
               description: lorem.generateSentences(5),
-            }
-          )
+            },
+          })
         );
       })
       .flat();

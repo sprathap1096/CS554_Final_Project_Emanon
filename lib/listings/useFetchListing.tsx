@@ -10,6 +10,10 @@ export default function useFetchListing(listingId: string) {
     () => ListingService.fetchListing({ userId: currentUser?.id!, listingId }),
     {
       enabled: !!currentUser && !!listingId,
+      refetchOnReconnect: false,
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+      staleTime: Infinity,
     }
   );
 }

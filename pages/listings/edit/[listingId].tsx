@@ -1,12 +1,21 @@
 import AuthGuard from "@App/lib/auth/AuthGuard";
 import { IBaseListing } from "@App/lib/listings/types";
 import useFetchListing from "@App/lib/listings/useFetchListing";
-import { LinearProgress } from "@mui/material";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  LinearProgress,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { list } from "firebase/storage";
 import { useRouter } from "next/router";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useEffect } from "react";
+import useUpdateListing from "@App/lib/listings/useUpdateListing";
 
 const inputValidationSchema = yup
   .object({
@@ -21,25 +30,97 @@ function EditListingPageContent() {
   const router = useRouter();
   const { listingId } = router.query;
 
-  const { data: listing, isLoading } = useFetchListing(listingId as string);
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors: formError },
   } = useForm<IBaseListing>({
-    defaultValues: listing?.data(),
     mode: "onSubmit",
     resolver: yupResolver(inputValidationSchema),
   });
+  const { data: listing, isLoading } = useFetchListing(listingId as string);
+  const { mutateAsync: updateListing, isLoading: isUpdating } =
+    useUpdateListing();
 
-  const onSaveChanges = () => {};
+  useEffect(() => {
+    if (listing && listing?.exists) {
+      setValue("title", listing.data()!.title);
+      setValue("description", listing.data()!.description);
+      setValue("author", listing.data()!.author);
+      setValue("price", listing.data()!.price);
+    }
+  }, [listing, setValue]);
+
+  const onSaveChanges: SubmitHandler<IBaseListing> = async (
+    data: IBaseListing
+  ) => {
+    await updateListing({ ref: listing!.ref, listingAttr: data });
+
+    router.push("/listings");
+  };
 
   if (!listing || isLoading) return <LinearProgress />;
 
   return (
-    <div>
-      <h1>Edit Listings Page</h1>
-    </div>
+    <Box>
+      <Typography variant="h2">Edit Listings Page</Typography>
+
+      <form onSubmit={handleSubmit(onSaveChanges)}>
+        <Box>
+          <TextField
+            required
+            fullWidth
+            margin="normal"
+            placeholder="Title"
+            {...register("title")}
+          />
+          {formError.title && (
+            <Typography>{formError.title.message}</Typography>
+          )}
+
+          <TextField
+            required
+            fullWidth
+            margin="normal"
+            placeholder="Author"
+            {...register("author")}
+          />
+          {formError.author && (
+            <Typography>{formError.author.message}</Typography>
+          )}
+
+          <TextField
+            required
+            fullWidth
+            margin="normal"
+            placeholder="Description"
+            {...register("description")}
+          />
+          {formError.description && (
+            <Typography>{formError.description.message}</Typography>
+          )}
+
+          <TextField
+            required
+            fullWidth
+            margin="normal"
+            type="number"
+            placeholder="Price"
+            {...register("price")}
+          />
+          {formError.price && (
+            <Typography>{formError.price.message}</Typography>
+          )}
+        </Box>
+
+        <Box>
+          <Button type="submit" disabled={isUpdating}>
+            {isUpdating ? <CircularProgress /> : "Save Changes"}
+          </Button>
+        </Box>
+      </form>
+    </Box>
   );
 }
 

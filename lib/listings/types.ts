@@ -16,3 +16,13 @@ export interface IBaseListing {
 export interface IListingAttributes extends IBaseListing {
   createdAt: Timestamp;
 }
+
+export interface IUpdateListingParams {
+  ref: TListingDocumentReference;
+  listingAttr: Partial<IBaseListing>;
+}
+
+export interface IAddListingParams {
+  ref: TListingCollectionReference;
+  listingAttr: IBaseListing;
+}

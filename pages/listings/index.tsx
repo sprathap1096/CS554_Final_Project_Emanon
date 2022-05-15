@@ -1,151 +1,54 @@
-import {
-  Card,
-  CardMedia,
-  Stack,
-  CardContent,
-  Box,
-  LinearProgress,
-  Paper,
-  Typography,
-  Button,
-} from "@mui/material";
-import type { NextPage } from "next";
-import { TListingDocumentReference } from "@App/lib/listings/types";
-import { useRouter } from "next/router";
-import useDeleteListing from "@App/lib/listings/useDeleteListing";
+import { Box, LinearProgress, Paper, Typography, Button } from "@mui/material";
+
 import AuthGuard from "@App/lib/auth/AuthGuard";
 import useAuthContext from "@App/lib/auth/AuthContext";
-import useFetchUserListings from "@App/lib/listings/useFetchUserListing";
+import useFetchUserListings from "@App/lib/listings/useFetchUserListings";
+import ListingListItem from "@App/components/listings/ListingListItem";
+import AddListingModal from "@App/components/listings/AddListingModal";
+import useModalState from "@App/hooks/useModalState";
 
-const ListingsPage: NextPage = () => {
-  const router = useRouter();
+const ListingsPageContent = () => {
   const { currentUser } = useAuthContext();
-  const { data: listings, isLoading } = useFetchUserListings({
+  const {
+    data: listings,
+    isLoading,
+    isFetching,
+  } = useFetchUserListings({
     userId: currentUser?.id!,
   });
-
-  const { mutate: deleteListing } = useDeleteListing();
-
-  const handleClickDelete = (ref: TListingDocumentReference) => {
-    deleteListing(ref);
-  };
-
-  const handleClickEdit = (
-    title: string,
-    author: string,
-    price: number,
-    description: string,
-    listingId: string,
-    userId: string
-  ) => {
-    router.push({
-      pathname: "/listings/edit",
-      query: {
-        title: title,
-        author: author,
-        price: price,
-        description: description,
-        listingId: listingId,
-      },
-    });
-  };
-
-  if (isLoading || !listings) return <LinearProgress />;
-
-  if (listings.empty) return <Typography>No listings found</Typography>;
+  const addListingModal = useModalState();
 
   return (
-    <AuthGuard>
-      <Typography variant="h2">My Listings</Typography>
-      <Button type="link" size="large" variant="contained" href="/addListings">
-        Add
-      </Button>
-      {listings.docs.map((listing) => (
-        <Box key={listing.id} paddingY={2}>
-          <Card sx={{ display: "flex" }}>
-            <CardMedia
-              component="img"
-              sx={{ width: 151 }}
-              image="/images/images.jpeg"
-            />
-            <Box sx={{ display: "flex", flexDirection: "column" }}>
-              <CardContent sx={{ flex: "1 0 auto" }}>
-                <Typography component="div" variant="h5">
-                  {listing.data().title}
-                </Typography>
-                <Typography
-                  variant="subtitle1"
-                  color="text.secondary"
-                  pb={2}
-                  component="div"
-                >
-                  Author: {listing.data().author}
-                </Typography>
-                <Typography
-                  variant="subtitle1"
-                  color="text.secondary"
-                  pb={2}
-                  mr="70%"
-                  minWidth="70%"
-                  component="div"
-                >
-                  Desciption: {listing.data().description}
-                </Typography>
-                <Typography
-                  variant="subtitle1"
-                  color="text.secondary"
-                  pb={2}
-                  component="div"
-                >
-                  Price:${listing.data().price}
-                </Typography>
-                <Typography
-                  variant="subtitle1"
-                  color="text.secondary"
-                  component="div"
-                >
-                  Rating: Nan
-                </Typography>
-              </CardContent>
-              <Box
-                sx={{
-                  display: "flex-box",
-                  float: "right",
-                  pl: 1,
-                  pb: 1,
-                  pt: 0,
-                }}
-              >
-                <Stack spacing={2} alignItems="right" direction="row">
-                  <Button
-                    variant="outlined"
-                    onClick={() => handleClickDelete(listing.ref)}
-                  >
-                    Delete
-                  </Button>
-                  <Button
-                    variant="outlined"
-                    onClick={() =>
-                      handleClickEdit(
-                        listing.data().title,
-                        listing.data().author,
-                        listing.data().price,
-                        listing.data().description,
-                        listing.id,
-                        currentUser?.id!
-                      )
-                    }
-                  >
-                    Edit
-                  </Button>
-                </Stack>
-              </Box>
-            </Box>
-          </Card>
-        </Box>
-      ))}
-    </AuthGuard>
+    <>
+      <Box display="flex" width={"100%"} justifyContent="space-between">
+        <Typography variant="h2">My Listings</Typography>
+
+        <Button variant="contained" onClick={addListingModal.onOpen}>
+          Add Listing
+        </Button>
+      </Box>
+
+      {isLoading || isFetching || (!listings && <LinearProgress />)}
+
+      {listings && listings.empty && <Typography>No listings found</Typography>}
+
+      {listings &&
+        listings.docs.map((listing) => (
+          <ListingListItem key={listing.id} listing={listing} />
+        ))}
+
+      <AddListingModal
+        open={addListingModal.isOpen}
+        onClose={addListingModal.onClose}
+      />
+    </>
   );
 };
 
-export default ListingsPage;
+export default function ListingsPage() {
+  return (
+    <AuthGuard>
+      <ListingsPageContent />
+    </AuthGuard>
+  );
+}
