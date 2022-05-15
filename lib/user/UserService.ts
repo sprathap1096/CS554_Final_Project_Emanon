@@ -22,8 +22,12 @@ class UserService extends FirebaseService {
     this.firestore = getFirestore(this.app);
   }
 
-  private getDocRef(userId: string) {
-    return doc(this.firestore, "users", userId) as DocumentReference<IUserAttributes>;
+  getDocRef(userId: string) {
+    return doc(
+      this.firestore,
+      "users",
+      userId
+    ) as DocumentReference<IUserAttributes>;
   }
 
   async add(userId: string, user: IUserAttributes) {

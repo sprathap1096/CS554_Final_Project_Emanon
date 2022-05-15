@@ -15,11 +15,11 @@ import {
   getDoc,
   updateDoc,
 } from "firebase/firestore";
+
 import FirebaseService from "../firebase/FirebaseService";
 import { ECollections } from "../firebase/types";
 import {
   IAddListingParams,
-  IBaseListing,
   IListingAttributes,
   IUpdateListingParams,
   TListingCollectionReference,

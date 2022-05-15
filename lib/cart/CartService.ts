@@ -2,18 +2,23 @@ import {
   addDoc,
   collection,
   CollectionReference,
+  deleteDoc,
+  doc,
+  DocumentReference,
   Firestore,
+  getDoc,
+  getDocs,
   getFirestore,
   Timestamp,
 } from "firebase/firestore";
-import { IBookAttributes } from "../books/types";
+
 import FirebaseService from "../firebase/FirebaseService";
 import { ECollections } from "../firebase/types";
-import { IBaseListing } from "../listings/types";
+import { IUserDocumentReference } from "../user/types";
 import {
   IAddToCartParams,
   ICartItemAttributes,
-  TCartCollectionReferenceAttribute,
+  TCartItemDocumentReference,
 } from "./types";
 
 class CartService extends FirebaseService {
@@ -25,13 +30,31 @@ class CartService extends FirebaseService {
     this.firestore = getFirestore(this.app);
   }
 
-  getCollectionRef(ref: TCartCollectionReferenceAttribute) {
+  getCollectionRef(ref: IUserDocumentReference) {
+    if (ref instanceof DocumentReference)
+      return collection(
+        ref,
+        ECollections.Cart
+      ) as CollectionReference<ICartItemAttributes>;
+
     return collection(
       this.firestore,
       ECollections.Users,
       ref.userId,
       ECollections.Cart
     ) as CollectionReference<ICartItemAttributes>;
+  }
+
+  getDocRef(ref: TCartItemDocumentReference) {
+    if (ref instanceof DocumentReference) return ref;
+
+    return doc(
+      this.firestore,
+      ECollections.Users,
+      ref.userId,
+      ECollections.Cart,
+      ref.cartItemId
+    ) as DocumentReference<ICartItemAttributes>;
   }
 
   async addToCart({ ref, cartItemAttributes }: IAddToCartParams) {
@@ -43,6 +66,18 @@ class CartService extends FirebaseService {
     };
 
     return await addDoc(collectionRef, cartItem);
+  }
+
+  async fetchUserCart(ref: IUserDocumentReference) {
+    const collectionRef = this.getCollectionRef(ref);
+
+    return await getDocs(collectionRef);
+  }
+
+  async deleteCartItem(ref: TCartItemDocumentReference) {
+    const docRef = this.getDocRef(ref);
+
+    return await deleteDoc(docRef);
   }
 }
 

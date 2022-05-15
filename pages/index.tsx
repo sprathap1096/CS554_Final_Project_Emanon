@@ -1,6 +1,15 @@
+import BrowseListItem from "@App/components/browse/BrowseListItem";
 import AuthGuard from "@App/lib/auth/AuthGuard";
 import useFetchAllListing from "@App/lib/listings/useFetchAllListings";
-import { Box, Button, LinearProgress, Paper, Typography } from "@mui/material";
+import { Add, AddCircleRounded } from "@mui/icons-material";
+import {
+  Box,
+  Button,
+  IconButton,
+  LinearProgress,
+  Paper,
+  Typography,
+} from "@mui/material";
 import type { NextPage } from "next";
 
 const HomePageContent = () => {
@@ -15,12 +24,7 @@ const HomePageContent = () => {
       <Typography variant="h2">Browse</Typography>
 
       {listings.docs.map((listing) => (
-        <Box key={listing.id} paddingY={2}>
-          <Paper>
-            <Typography>{listing.data().title}</Typography>
-            <Button>Add to Cart</Button>
-          </Paper>
-        </Box>
+        <BrowseListItem key={listing.id} listing={listing} />
       ))}
     </Box>
   );
