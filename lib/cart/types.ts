@@ -1,10 +1,6 @@
 import { DocumentReference, Timestamp } from "firebase/firestore";
 
-import {
-  IBaseListing,
-  IListingAttributes,
-  TListingDocumentReference,
-} from "../listings/types";
+import { IBaseListing, IListingAttributes } from "../listings/types";
 import { IUserDocumentReference } from "../user/types";
 
 export type TCartItemDocumentReference =
