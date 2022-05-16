@@ -1,34 +1,69 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+                                                          Amanon Store
+This a web application for users to sell and buy books. We provide a platform for to the user to sign-up and list their book on the website and start selling them or buying the books they are interested in reading. 
+As soon as the user sign-in he/she are displayed a list of books from which they can add books to the cart or remove them as per liking, we also provide a feature to open the selected books in a new page to get a better view and review the book. This application also provides features like Add to cart, review the book, and give ratings to the book. If the user wants to sell a book, then they can go to listing page and add a new book to their list with a cover picture of the book or edit the existing books, this page will also display the existing listings by the user. The order page will page will give the user the history of order placed by the user and books page will give the user the list of books owned by the user. We also provide feature to update the user profile in the profile page where the user can edit name and add or change profile picture.
 
-## Getting Started
+Getting Started
+To set up this project please follow the steps given below:
 
-First, run the development server:
+1)	Open the project folder in Visual Studio Code 
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+2)	Install the Node Package Manager dependencies using npm install or npm i
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3)	Next, install firebase-tools as global package 
+         •	For windows npm: Run npm install -g firebase-tools
+         •	For macOS/Linux: 
+            (a)	automatic install script: Run curl -sL https://firebase.tools | upgrade=true bash
+            (b)	npm: Run npm install -g firebase-tools
+            for more information visit: https://firebase.google.com/docs/cli 
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+4)	Now, to start the firebase emulator open new terminal in the Visual Studio Code and type:
+         •    yarn emulate (to start the firebase emulator) or
+         •	firebase emulators:start
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+5)	After the emulator starts running, we need or application to run, for this open a new terminal and run command: 
+         •	yarn dev or
+         •	npm run dev
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+6)	We will now seed the data into the emulator, after the application starts running 
+    Open a browser and paste the URL: http://localhost:3000/api/seed 
 
-## Learn More
+7)	To check if the data has been seeded, please visit the below URL:
+         •	For Auth: http://localhost:4000/auth
+         •	For Viewing the Collections: http://localhost:4000/firestore 
+         •	For Storage: http://localhost:4000/storage 
 
-To learn more about Next.js, take a look at the following resources:
+8)	To Sign-in/ Register the application Visit: http://localhost:3000 
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+To skip sign-up, sign-in using one of the users below:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+         • email: ming@test.com password: "password” 
 
-## Deploy on Vercel
+         • email: jainam@test.com password: "password"
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+         • email: nisil@test.com password: "password" 
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+         • email: suraj@test.com password: "password" 
+         
+         • email: yun@test.com  password: "password" 
+
+9)	Information about the directories:
+
+        •	pages: contains all the routes or views 
+        •	assets: contains the image that would be used in seeding 
+        •	components: houses the universal layout and various other components referenced in other pages like drawer for navigation.
+        •	lib: holds all the services being used and referenced in the application such as authentication, listings, cart service etc. This directory is responsible for firebase interactions.
+        •	styles: constants the style information and CSS files for the applications
+
+10) Technologies used
+
+        • Next.js, a React framework with Type Script support (https://nextjs.org/)
+
+        ● Firebase 
+
+        • Auth, will provide user authentication services (https://firebase.google.com/docs/auth)
+
+        • Firestore, will provide our core database (https://firebase.google.com/docs/firestore)
+
+        • Storage, will provide a storage solution for assets and file storage (https://firebase.google.com/docs/storage)
+
+        • Local Emulator, will provide a suite of Firebase tools locally(https://firebase.google.com/docs/emulator-suite)
