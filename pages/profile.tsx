@@ -10,14 +10,14 @@ const ProfilePage: NextPage = () => {
 
   return (
     <AuthGuard>
-      <Typography>Profile</Typography>
+      <Typography variant="h3">Profile</Typography>
       <Card sx={{ display: 'flex' }}>
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
           <CardContent sx={{ flex: '1 0 auto' }}>
-            <Typography variant="subtitle1" color="text.secondary" pb={2} component="div">
+            <Typography variant="body1"  pb={2} component="div">
               Name: {userData != null ? userData?.name : 'error'}
             </Typography>
-            <Typography variant="subtitle1" color="text.secondary" pb={2} component="div">
+            <Typography variant="body1" pb={2} component="div">
               Email: {userData != null ? userData?.email : 'error'}
             </Typography>
           </CardContent>
