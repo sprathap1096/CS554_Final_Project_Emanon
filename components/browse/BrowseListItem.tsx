@@ -1,4 +1,5 @@
 import useAuthContext from "@App/lib/auth/AuthContext";
+import { ICartItemAttributes } from "@App/lib/cart/types";
 
 import useAddCartItem from "@App/lib/cart/useAddCartItem";
 import { IListingAttributes } from "@App/lib/listings/types";
@@ -15,18 +16,26 @@ import {
   Paper,
   Typography,
 } from "@mui/material";
-import { DocumentSnapshot, QueryDocumentSnapshot } from "firebase/firestore";
+import {
+  DocumentSnapshot,
+  QueryDocumentSnapshot,
+  QuerySnapshot,
+} from "firebase/firestore";
 import { useCallback, useEffect, useState } from "react";
 import { useQueryClient } from "react-query";
 
 interface Props {
   listing: QueryDocumentSnapshot<IListingAttributes>;
   user: DocumentSnapshot<IUserAttributes>;
+  cart: QuerySnapshot<ICartItemAttributes>;
 }
-export default function BrowseListItem({ listing, user }: Props) {
+
+export default function BrowseListItem({ listing, user, cart }: Props) {
   const { currentUser } = useAuthContext();
   const queryClient = useQueryClient();
   const { mutate: addCartItem, isLoading: isAdding } = useAddCartItem();
+
+  const cartData = queryClient.getQueryData(["cart", currentUser!.id]);
 
   const [avatar, setAvatar] = useState<string>();
 
@@ -48,6 +57,11 @@ export default function BrowseListItem({ listing, user }: Props) {
   useEffect(() => {
     fetchAvatar();
   }, [fetchAvatar]);
+
+  if (
+    !!cart.docs.find((doc) => doc.data().listingRef.path === listing.ref.path)
+  )
+    return null;
 
   return (
     <Box key={listing.id} paddingY={2}>

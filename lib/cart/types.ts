@@ -1,6 +1,10 @@
 import { DocumentReference, Timestamp } from "firebase/firestore";
 
-import { IBaseListing, TListingDocumentReference } from "../listings/types";
+import {
+  IBaseListing,
+  IListingAttributes,
+  TListingDocumentReference,
+} from "../listings/types";
 import { IUserDocumentReference } from "../user/types";
 
 export type TCartItemDocumentReference =
@@ -8,10 +12,10 @@ export type TCartItemDocumentReference =
   | { userId: string; cartItemId: string };
 
 export interface IBaseCartItem extends IBaseListing {
-  listingRef: TListingDocumentReference;
+  listingRef: DocumentReference<IListingAttributes>;
 }
 
-export interface ICartItemAttributes extends IBaseListing {
+export interface ICartItemAttributes extends IBaseCartItem {
   addedAt: Timestamp;
 }
 
