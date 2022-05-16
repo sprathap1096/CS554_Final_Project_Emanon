@@ -23,9 +23,11 @@ const ListingsPageContent = () => {
       <Box display="flex" width={"100%"} justifyContent="space-between">
         <Typography variant="h2">My Listings</Typography>
 
-        <Button variant="contained" onClick={addListingModal.onOpen}>
-          Add Listing
-        </Button>
+        <Box>
+          <Button variant="contained" onClick={addListingModal.onOpen}>
+            Add Listing
+          </Button>
+        </Box>
       </Box>
 
       {isLoading || isFetching || (!listings && <LinearProgress />)}
