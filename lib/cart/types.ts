@@ -1,14 +1,21 @@
-import { Timestamp } from "firebase/firestore";
-import { IBookAttributes } from "../books/types";
-import { IBaseListing } from "../listings/types";
+import { DocumentReference, Timestamp } from "firebase/firestore";
 
-export type TCartCollectionReferenceAttribute = { userId: string };
+import { IBaseListing, TListingDocumentReference } from "../listings/types";
+import { IUserDocumentReference } from "../user/types";
+
+export type TCartItemDocumentReference =
+  | DocumentReference<ICartItemAttributes>
+  | { userId: string; cartItemId: string };
+
+export interface IBaseCartItem extends IBaseListing {
+  listingRef: TListingDocumentReference;
+}
 
 export interface ICartItemAttributes extends IBaseListing {
   addedAt: Timestamp;
 }
 
 export interface IAddToCartParams {
-  ref: TCartCollectionReferenceAttribute;
-  cartItemAttributes: IBaseListing;
+  ref: IUserDocumentReference;
+  cartItemAttributes: IBaseCartItem;
 }

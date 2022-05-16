@@ -1,7 +1,7 @@
 import { PropsWithChildren, useEffect, useMemo, useState } from "react";
+
 import AuthService from "./AuthService";
 import { AuthContext } from "./AuthContext";
-
 import { DocumentSnapshot } from "firebase/firestore";
 import { IUserAttributes } from "../user/types";
 import UserService from "../user/UserService";
@@ -14,7 +14,9 @@ export function AuthContextProvider({ children }: PropsWithChildren<{}>) {
   useEffect(() => {
     AuthService.onAuthStateChanged(async (user) => {
       if (user) {
-        const userDocSnapshot = await UserService.getUser(user?.uid);
+        const userDocSnapshot = await UserService.getUser({
+          userId: user?.uid,
+        });
 
         setCurrentUser(userDocSnapshot);
       }
@@ -25,7 +27,7 @@ export function AuthContextProvider({ children }: PropsWithChildren<{}>) {
     const login = async (email: string, password: string) => {
       try {
         const { user } = await AuthService.login({ email, password });
-        const userDocSnapshot = await UserService.getUser(user.uid);
+        const userDocSnapshot = await UserService.getUser({ userId: user.uid });
 
         setCurrentUser(userDocSnapshot);
       } catch (error: any) {
@@ -45,7 +47,7 @@ export function AuthContextProvider({ children }: PropsWithChildren<{}>) {
 
         await UserService.createNewUser(user);
 
-        const userDocSnapshot = await UserService.getUser(user.uid);
+        const userDocSnapshot = await UserService.getUser({ userId: user.uid });
 
         setCurrentUser(userDocSnapshot);
       } catch (error: any) {
