@@ -11,7 +11,8 @@ import {
 } from "firebase/firestore";
 
 import FirebaseService from "../firebase/FirebaseService";
-import { IUserAttributes } from "./types";
+import { ECollections } from "../firebase/types";
+import { IUserAttributes, IUserDocumentReference } from "./types";
 
 class UserService extends FirebaseService {
   private firestore: Firestore;
@@ -22,22 +23,24 @@ class UserService extends FirebaseService {
     this.firestore = getFirestore(this.app);
   }
 
-  getDocRef(userId: string) {
+  getDocRef(ref: IUserDocumentReference) {
+    if (ref instanceof DocumentReference) return ref;
+
     return doc(
       this.firestore,
-      "users",
-      userId
+      ECollections.Users,
+      ref.userId
     ) as DocumentReference<IUserAttributes>;
   }
 
-  async add(userId: string, user: IUserAttributes) {
-    const userDocRef = this.getDocRef(userId);
+  async add(ref: IUserDocumentReference, user: IUserAttributes) {
+    const userDocRef = this.getDocRef(ref);
 
     return setDoc(userDocRef, user);
   }
 
   async createNewUser(user: FirebaseUser) {
-    const userDocRef = this.getDocRef(user.uid);
+    const userDocRef = this.getDocRef({ userId: user.uid });
 
     const userDoc = {
       email: user.email || "",
@@ -49,8 +52,8 @@ class UserService extends FirebaseService {
     return setDoc(userDocRef, userDoc);
   }
 
-  async getUser(userId: string) {
-    const userDocRef = this.getDocRef(userId);
+  async getUser(ref: IUserDocumentReference) {
+    const userDocRef = this.getDocRef(ref);
 
     try {
       return await getDoc(userDocRef);

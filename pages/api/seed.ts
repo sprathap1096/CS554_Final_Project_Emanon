@@ -93,7 +93,7 @@ export default async function seed(
 
     const userCollectionsMutation = userCredentials.map(async ({ user }, idx) =>
       UserService.add(
-        user.uid,
+        { userId: user.uid },
         new UserBuilder()
           .with({
             email: user.email!,

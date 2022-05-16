@@ -3,23 +3,22 @@ import AuthGuard from "@App/lib/auth/AuthGuard";
 import useAddCartItem from "@App/lib/cart/useAddCartItem";
 import { IListingAttributes } from "@App/lib/listings/types";
 import useFetchAllListing from "@App/lib/listings/useFetchAllListings";
+import { IUserAttributes } from "@App/lib/user/types";
 import { Add, AddCircleRounded } from "@mui/icons-material";
 import {
   Box,
-  Button,
   CircularProgress,
   IconButton,
-  LinearProgress,
   Paper,
   Typography,
 } from "@mui/material";
-import { QueryDocumentSnapshot } from "firebase/firestore";
-import type { NextPage } from "next";
+import { DocumentSnapshot, QueryDocumentSnapshot } from "firebase/firestore";
 
 interface Props {
   listing: QueryDocumentSnapshot<IListingAttributes>;
+  user: DocumentSnapshot<IUserAttributes>;
 }
-export default function BrowseListItem({ listing }: Props) {
+export default function BrowseListItem({ listing, user }: Props) {
   const { currentUser } = useAuthContext();
   const { mutate: addCartItem, isLoading: isAdding } = useAddCartItem();
 

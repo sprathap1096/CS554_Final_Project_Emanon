@@ -35,7 +35,7 @@ export default function CartButton() {
           </Box>
         ))}
 
-        {!cart.empty && <Button variant="contained">Add to Library</Button>}
+        {!cart.empty && <Button variant="contained">Add Books</Button>}
       </>
     );
   };
@@ -57,7 +57,9 @@ export default function CartButton() {
         open={isOpen}
       >
         <Box p={2}>
-          <Typography color="textPrimary">Shopping Cart</Typography>
+          <Typography color="textPrimary" variant="h5">
+            Shopping Cart
+          </Typography>
 
           {isLoading && <LinearProgress />}
 

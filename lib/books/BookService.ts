@@ -5,10 +5,12 @@ import {
   doc,
   DocumentReference,
   Firestore,
+  getDocs,
   getFirestore,
 } from "firebase/firestore";
 import FirebaseService from "../firebase/FirebaseService";
 import { ECollections } from "../firebase/types";
+import { IUserDocumentReference } from "../user/types";
 import {
   IBookAttributes,
   TBookCollectionReference,
@@ -36,7 +38,13 @@ class BookService extends FirebaseService {
     ) as DocumentReference<IBookAttributes>;
   }
 
-  getCollectionRef(ref: TBookCollectionReference) {
+  getCollectionRef(ref: IUserDocumentReference) {
+    if (ref instanceof DocumentReference)
+      return collection(
+        ref,
+        ECollections.Books
+      ) as CollectionReference<IBookAttributes>;
+
     return collection(
       this.firestore,
       ECollections.Users,
@@ -49,6 +57,12 @@ class BookService extends FirebaseService {
     const collectionRef = this.getCollectionRef(ref);
 
     return addDoc(collectionRef, bookAttr);
+  }
+
+  async fetchUserBooks(ref: IUserDocumentReference) {
+    const collectionRef = this.getCollectionRef(ref);
+
+    return getDocs(collectionRef);
   }
 }
 

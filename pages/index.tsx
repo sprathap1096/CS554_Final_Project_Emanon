@@ -17,14 +17,14 @@ const HomePageContent = () => {
 
   if (isLoading || !listings) return <LinearProgress />;
 
-  if (listings.empty) return <Typography>No listings found</Typography>;
+  if (listings.length === 0) return <Typography>No listings found</Typography>;
 
   return (
     <Box>
       <Typography variant="h2">Browse</Typography>
 
-      {listings.docs.map((listing) => (
-        <BrowseListItem key={listing.id} listing={listing} />
+      {listings.map(({ listing, user }) => (
+        <BrowseListItem key={listing.id} listing={listing} user={user!} />
       ))}
     </Box>
   );
