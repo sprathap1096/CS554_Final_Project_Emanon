@@ -6,7 +6,9 @@ export type TOrderDocumentReference =
   | DocumentReference<IOrderAttributes>
   | { userId: string; orderId: string };
 
-export interface IOrderAttributes {
+export interface IBaseOrder {
   order: IBaseListing[];
+}
+export interface IOrderAttributes extends IBaseOrder {
   createdAt: Timestamp;
 }

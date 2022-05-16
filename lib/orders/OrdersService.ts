@@ -1,4 +1,5 @@
 import {
+  addDoc,
   collection,
   CollectionReference,
   doc,
@@ -6,11 +7,12 @@ import {
   Firestore,
   getDocs,
   getFirestore,
+  Timestamp,
 } from "firebase/firestore";
 import FirebaseService from "../firebase/FirebaseService";
 import { ECollections } from "../firebase/types";
 import { IUserDocumentReference } from "../user/types";
-import { IOrderAttributes, TOrderDocumentReference } from "./types";
+import { IBaseOrder, IOrderAttributes, TOrderDocumentReference } from "./types";
 
 type NewType = IUserDocumentReference;
 
@@ -54,6 +56,17 @@ class OrdersService extends FirebaseService {
     const collectionRef = this.getCollectionRef(ref);
 
     return await getDocs(collectionRef);
+  }
+
+  async addOrder(ref: IUserDocumentReference, orderAttr: IBaseOrder) {
+    const collectionRef = this.getCollectionRef(ref);
+
+    const order: IOrderAttributes = {
+      ...orderAttr,
+      createdAt: Timestamp.now(),
+    };
+
+    return await addDoc(collectionRef, order);
   }
 }
 

@@ -1,9 +1,11 @@
+import useAddBooks from "@App/lib/books/useAddBooks";
 import useFetchUserCart from "@App/lib/cart/useFetchUserCart";
 import { ShoppingCart } from "@mui/icons-material";
 import {
   Badge,
   Box,
   Button,
+  CircularProgress,
   IconButton,
   LinearProgress,
   Popover,
@@ -16,10 +18,17 @@ export default function CartButton() {
   const ref = useRef(null);
 
   const { data: cart, isLoading } = useFetchUserCart();
+  const { mutate: addBook, isLoading: isAddingBook } = useAddBooks();
 
   const [isOpen, setIsOpen] = useState(false);
 
   const onClickIcon = () => setIsOpen(true);
+
+  const handleAddBooks = () => {
+    if (!cart) return null;
+
+    addBook({ cart });
+  };
 
   const renderBody = () => {
     if (!cart) return null;
@@ -35,7 +44,15 @@ export default function CartButton() {
           </Box>
         ))}
 
-        {!cart.empty && <Button variant="contained">Add Books</Button>}
+        {!cart.empty && (
+          <Button
+            disabled={isAddingBook}
+            variant="contained"
+            onClick={handleAddBooks}
+          >
+            {isAddingBook ? <CircularProgress /> : "Add Books"}
+          </Button>
+        )}
       </>
     );
   };

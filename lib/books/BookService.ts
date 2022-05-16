@@ -11,11 +11,7 @@ import {
 import FirebaseService from "../firebase/FirebaseService";
 import { ECollections } from "../firebase/types";
 import { IUserDocumentReference } from "../user/types";
-import {
-  IBookAttributes,
-  TBookCollectionReference,
-  TBookDocumentReference,
-} from "./types";
+import { IBookAttributes, TBookDocumentReference } from "./types";
 
 class BookService extends FirebaseService {
   firestore: Firestore;
@@ -53,7 +49,7 @@ class BookService extends FirebaseService {
     ) as CollectionReference<IBookAttributes>;
   }
 
-  async addBook(ref: TBookCollectionReference, bookAttr: IBookAttributes) {
+  async addBook(ref: IUserDocumentReference, bookAttr: IBookAttributes) {
     const collectionRef = this.getCollectionRef(ref);
 
     return addDoc(collectionRef, bookAttr);
